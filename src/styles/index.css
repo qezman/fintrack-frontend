@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg-base:        #0f1117;
+  --bg-surface:     #161b22;
+  --bg-elevated:    #1c2128;
+  --bg-input:       #21262d;
+  --text-primary:   #e6edf3;
+  --text-secondary: #8b949e;
+  --text-tertiary:  #484f58;
+  --income:         #3fb950;
+  --income-dim:     rgba(63, 185, 80, 0.12);
+  --expense:        #f85149;
+  --expense-dim:    rgba(248, 81, 73, 0.12);
+  --neutral:        #58a6ff;
+  --neutral-dim:    rgba(88, 166, 255, 0.12);
+  --warning:        #d29922;
+  --border:         rgba(230, 237, 243, 0.08);
+  --border-bright:  rgba(230, 237, 243, 0.16);
+  --sidebar-width:  240px;
+  --font-base:      'Inter', system-ui, sans-serif;
+  --font-mono:      'JetBrains Mono', 'Fira Code', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Dot grid background --- */
+.bg-dot-grid {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* --- Row hover action reveal --- */
+.row-actions-trigger .row-action-btn {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.row-actions-trigger:hover .row-action-btn {
+  opacity: 1;
+}
+
+/* --- Animations --- */
+.animate-page-entry { animation: pageEntry 0.25s ease forwards; }
+.animate-modal-entry { animation: modalEntry 0.2s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-sheet-entry { animation: sheetEntry 0.3s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-toast-entry { animation: toastEntry 0.3s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-shimmer {
+  background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-input) 50%, var(--bg-elevated) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite linear;
+}
+
+@keyframes pageEntry {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modalEntry {
+  from { opacity: 0; transform: scale(0.96) translate(-50%, -48%); }
+  to   { opacity: 1; transform: scale(1)    translate(-50%, -50%); }
+}
+@keyframes sheetEntry {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+@keyframes toastEntry {
+  from { transform: translateX(120%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--bg-input); border-radius: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
