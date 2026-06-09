@@ -84,7 +84,6 @@ export const TransactionForm = ({ onSuccess }: TransactionFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-5">
-      {/* Type Toggle */}
       <div className="flex bg-[var(--bg-input)] p-1 rounded-lg">
         {(['expense', 'income'] as TransactionType[]).map((t) => (
           <button
@@ -128,7 +127,7 @@ export const TransactionForm = ({ onSuccess }: TransactionFormProps) => {
       <Select
         label="Category"
         value={category}
-        onChange={(e) => setCategory(e.target.value as Category)}
+        onValueChange={(v) => setCategory(v as Category)}
         options={categories.map((c) => ({ value: c, label: c }))}
       />
 
@@ -156,8 +155,19 @@ export const TransactionForm = ({ onSuccess }: TransactionFormProps) => {
         ) : (
           <div className="flex items-center justify-between p-3 border border-[var(--border)] rounded-lg bg-[var(--bg-input)]">
             <div className="flex items-center gap-3 overflow-hidden">
-              <FileIcon className="w-5 h-5 text-[var(--neutral)] shrink-0" />
-              <span className="text-sm text-[var(--text-primary)] truncate">{file.name}</span>
+              {file.type.startsWith('image/') ? (
+                <img 
+                  src={URL.createObjectURL(file)} 
+                  alt="Preview" 
+                  className="w-10 h-10 object-cover rounded border border-[var(--border)] shrink-0" 
+                />
+              ) : (
+                <FileIcon className="w-5 h-5 text-[var(--neutral)] shrink-0" />
+              )}
+              <div className="flex flex-col overflow-hidden">
+                <span className="text-sm font-medium text-[var(--text-primary)] truncate">{file.name}</span>
+                <span className="text-xs text-[var(--text-secondary)]">{(file.size / 1024).toFixed(1)} KB</span>
+              </div>
             </div>
             <button
               type="button"

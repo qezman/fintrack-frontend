@@ -14,8 +14,8 @@ export const AppShell = ({ children, pageTitle, onAddTransaction }: AppShellProp
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-[var(--bg-base)]">
-      <div className="hidden md:block">
+    <div className="min-h-screen bg-transparent">
+      <div className="hidden md:block fixed inset-y-0 left-0 z-40">
         <Sidebar />
       </div>
 
@@ -25,7 +25,9 @@ export const AppShell = ({ children, pageTitle, onAddTransaction }: AppShellProp
             className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm"
             onClick={() => setSidebarOpen(false)}
           />
-          <Sidebar />
+          <div className="fixed inset-y-0 left-0 z-40">
+            <Sidebar onClose={() => setSidebarOpen(false)} />
+          </div>
         </div>
       )}
 

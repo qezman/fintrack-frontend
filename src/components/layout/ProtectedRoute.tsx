@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom'
+import { useAuth } from '@/hooks/useAuth'
 
 export const ProtectedRoute = () => {
-  const token = localStorage.getItem('fintrack_token')
-  return token ? <Outlet /> : <Navigate to="/login" replace />
+  const { isAuthenticated } = useAuth()
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />
 }

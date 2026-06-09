@@ -10,14 +10,14 @@ import { useSummary } from '@/hooks/useSummary'
 import { useTransactions } from '@/hooks/useTransactions'
 
 export const Dashboard = () => {
-  const { summary, isLoading: summaryLoading } = useSummary()
+  const { summary, isLoading: summaryLoading, fetchSummary } = useSummary()
   const { transactions, isLoading: txnsLoading, fetchTransactions } = useTransactions()
   const { isOpen, open, close } = useModal()
 
   const handleTransactionSuccess = () => {
     close()
     void fetchTransactions()
-    window.location.reload()
+    void fetchSummary()
   }
 
   return (
@@ -52,7 +52,6 @@ export const Dashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <RecentTransactions transactions={transactions} isLoading={txnsLoading} />
         </div>
-
       </div>
 
       <Modal isOpen={isOpen} onClose={close} title="New Transaction">

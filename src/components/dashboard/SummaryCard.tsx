@@ -22,7 +22,6 @@ const valueColors: Record<'income' | 'expense' | 'neutral', string> = {
 }
 
 export const SummaryCard = ({ label, value, variant, isLoading }: SummaryCardProps) => {
-  // Balance (neutral) is red if negative
   const isNegativeBalance = variant === 'neutral' && value < 0
   const valueColorClass = isNegativeBalance ? 'text-[var(--expense)]' : valueColors[variant]
 

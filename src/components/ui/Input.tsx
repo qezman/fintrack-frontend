@@ -1,47 +1,53 @@
-import { forwardRef } from 'react'
-import type { InputHTMLAttributes } from 'react'
+import { forwardRef, useId } from 'react'
 import { cn } from '@/utils/cn'
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
   error?: string
-  leftAddon?: string
+  leftAddon?: React.ReactNode
+  rightElement?: React.ReactNode
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, leftAddon, className, id, ...props }, ref) => {
+  ({ className, label, error, leftAddon, rightElement, id, ...props }, ref) => {
+    const generatedId = useId()
+    const inputId = id ?? generatedId
+
     return (
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1.5 w-full">
         {label && (
-          <label
-            htmlFor={id}
-            className="text-xs font-medium uppercase tracking-widest text-[var(--text-secondary)]"
-          >
+          <label htmlFor={inputId} className="text-[13px] font-medium text-[var(--text-secondary)] ml-1">
             {label}
           </label>
         )}
         <div className="relative flex items-center">
           {leftAddon && (
-            <span className="absolute left-3 font-mono text-[var(--text-secondary)] text-sm select-none">
+            <div className="absolute left-3.5 flex items-center text-[var(--text-tertiary)] pointer-events-none">
               {leftAddon}
-            </span>
+            </div>
           )}
           <input
             ref={ref}
-            id={id}
+            id={inputId}
             className={cn(
-              'w-full rounded-lg bg-[var(--bg-input)] border border-[var(--border)] px-3.5 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none transition-all duration-150',
-              'focus:border-[var(--neutral)] focus:shadow-[0_0_0_3px_rgba(88,166,255,0.15)]',
-              error && 'border-[var(--expense)] focus:shadow-[0_0_0_3px_rgba(248,81,73,0.15)]',
-              leftAddon && 'pl-8',
+              'flex h-11 w-full rounded-xl bg-[var(--bg-input)] border border-[var(--border)] px-4 py-2 text-sm text-[var(--text-primary)] transition-all placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent-primary)] focus:ring-1 focus:ring-[var(--accent-primary)] disabled:cursor-not-allowed disabled:opacity-50',
+              leftAddon && 'pl-10',
+              rightElement && 'pr-10',
+              error && 'border-[var(--expense)] focus:border-[var(--expense)] focus:ring-[var(--expense)]',
               className
             )}
             {...props}
           />
+          {rightElement && (
+            <div className="absolute right-3.5 flex items-center">
+              {rightElement}
+            </div>
+          )}
         </div>
-        {error && <p className="text-xs text-[var(--expense)]">{error}</p>}
+        {error && <span className="text-xs text-[var(--expense)] ml-1 font-medium">{error}</span>}
       </div>
     )
   }
 )
+
 Input.displayName = 'Input'

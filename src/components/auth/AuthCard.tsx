@@ -1,5 +1,5 @@
+import { Wallet } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { TrendingUp } from 'lucide-react'
 
 interface AuthCardProps {
   title: string
@@ -7,29 +7,27 @@ interface AuthCardProps {
   children: ReactNode
 }
 
-export const AuthCard = ({ title, subtitle, children }: AuthCardProps) => (
-  <div className="min-h-screen bg-[var(--bg-base)] bg-dot-grid flex items-center justify-center px-4 py-12">
-    <div className="w-full max-w-md">
-      {/* Logo */}
-      <div className="flex items-center gap-2.5 justify-center mb-8">
-        <div className="w-9 h-9 rounded-xl bg-[var(--neutral)] flex items-center justify-center shadow-lg shadow-[rgba(88,166,255,0.25)]">
-          <TrendingUp size={18} className="text-black" strokeWidth={2.5} />
-        </div>
-        <span className="text-xl font-semibold text-[var(--text-primary)] tracking-tight">
-          FinTrack
-        </span>
-      </div>
-
-      {/* Card */}
-      <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-surface)] shadow-xl p-8">
-        <div className="mb-7">
-          <h1 className="text-2xl font-semibold text-[var(--text-primary)] tracking-tight">
+export const AuthCard = ({ title, subtitle, children }: AuthCardProps) => {
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 animate-page-entry relative">
+      <div className="w-full max-w-[420px] glass-panel rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+        
+        {/* Subtle inner top glow for the glass card */}
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.2)] to-transparent" />
+        
+        <div className="flex flex-col items-center mb-8">
+          <div className="w-14 h-14 bg-[var(--bg-input)] rounded-2xl flex items-center justify-center mb-5 border border-[var(--border)]">
+            <Wallet size={28} className="text-[var(--neutral)]" />
+          </div>
+          <h1 className="text-2xl font-semibold tracking-tight text-white mb-1.5 text-center">
             {title}
           </h1>
-          <p className="mt-1.5 text-sm text-[var(--text-secondary)]">{subtitle}</p>
+          <p className="text-[15px] text-[var(--text-secondary)] text-center">
+            {subtitle}
+          </p>
         </div>
         {children}
       </div>
     </div>
-  </div>
-)
+  )
+}

@@ -36,14 +36,14 @@ export const Modal = ({ isOpen, onClose, title, children, className }: ModalProp
       {/* Desktop: centered modal; Mobile: bottom sheet */}
       <div
         className={cn(
-          'relative z-10 w-full bg-[var(--bg-surface)] border border-[var(--border)] shadow-2xl',
+          'relative z-10 w-full bg-[var(--bg-surface)] border border-[var(--border)] shadow-2xl flex flex-col max-h-[90vh]',
           'sm:max-w-[480px] sm:rounded-xl sm:animate-modal-entry',
           'rounded-t-2xl animate-sheet-entry sm:rounded-xl',
           className
         )}
       >
         {title && (
-          <div className="flex items-center justify-between p-5 border-b border-[var(--border)]">
+          <div className="flex-none flex items-center justify-between p-5 border-b border-[var(--border)]">
             <h2 className="text-base font-semibold text-[var(--text-primary)]">{title}</h2>
             <button
               onClick={onClose}
@@ -53,7 +53,9 @@ export const Modal = ({ isOpen, onClose, title, children, className }: ModalProp
             </button>
           </div>
         )}
-        {children}
+        <div className="flex-1 overflow-y-auto">
+          {children}
+        </div>
       </div>
     </div>
   )
