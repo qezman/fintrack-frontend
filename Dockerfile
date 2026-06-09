@@ -1,33 +1,25 @@
-# Build stage
+# Stage 1: Builder
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm ci
 
-# Copy the rest of the application
 COPY . .
 
-# Build the Vite application
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
+# Stage 2: Production image
+FROM nginx:alpine AS runner
 
-# Copy the built assets from the builder stage to nginx's serve directory
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Add a basic nginx configuration to handle React Router (client-side routing)
-RUN echo 'server { \
-    listen 80; \
-    location / { \
-        root /usr/share/nginx/html; \
-        index index.html index.htm; \
-        try_files $uri $uri/ /index.html; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
