@@ -55,7 +55,7 @@ export const CategoryBreakdown = ({ transactions }: CategoryBreakdownProps) => {
     <Card className="flex flex-col h-full col-span-1 lg:col-span-1">
       <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-6">Expenses by Category</h2>
 
-      <div className="flex-1 flex flex-col xl:flex-row items-center justify-center gap-8">
+      <div className="flex-1 flex flex-col items-center justify-center gap-6 w-full">
         {data.length === 0 ? (
           <EmptyState
             icon="inbox"
@@ -64,15 +64,15 @@ export const CategoryBreakdown = ({ transactions }: CategoryBreakdownProps) => {
           />
         ) : (
           <>
-            <div className="w-[200px] h-[200px] shrink-0">
+            <div className="w-[180px] h-[180px] shrink-0">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={data}
                     cx="50%"
                     cy="50%"
-                    innerRadius={65}
-                    outerRadius={95}
+                    innerRadius={55}
+                    outerRadius={85}
                     paddingAngle={2}
                     dataKey="value"
                     stroke="var(--bg-surface)"
@@ -87,20 +87,20 @@ export const CategoryBreakdown = ({ transactions }: CategoryBreakdownProps) => {
               </ResponsiveContainer>
             </div>
 
-            <div className="flex-1 w-full space-y-3">
+            <div className="w-full space-y-3">
               {data.map((item) => (
                 <div key={item.name} className="flex items-center justify-between group">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
-                    <span className="text-sm text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors">
+                  <div className="flex items-center gap-3 overflow-hidden">
+                    <div className="w-2.5 h-2.5 shrink-0 rounded-full" style={{ backgroundColor: item.color }} />
+                    <span className="text-sm text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors truncate">
                       {item.name}
                     </span>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs text-[var(--text-tertiary)] w-9 text-right">
+                  <div className="flex items-center gap-3 shrink-0 ml-4">
+                    <span className="text-xs text-[var(--text-tertiary)] w-8 text-right">
                       {item.percentage.toFixed(0)}%
                     </span>
-                    <span className="font-mono text-sm text-[var(--text-primary)]">
+                    <span className="font-mono text-sm text-[var(--text-primary)] w-16 text-right truncate">
                       {formatCurrency(item.value)}
                     </span>
                   </div>

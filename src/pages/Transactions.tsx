@@ -243,7 +243,7 @@ export const Transactions = () => {
         <div className="p-4 flex items-center justify-center bg-[var(--bg-base)]">
           {previewReceiptKey && (
             <img 
-              src={`${import.meta.env.VITE_API_URL}/uploads/${previewReceiptKey}`} 
+              src={previewReceiptKey} 
               alt="Receipt Preview" 
               className="max-w-full max-h-[70vh] object-contain rounded-lg border border-[var(--border)] shadow-lg"
             />

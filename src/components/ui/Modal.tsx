@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import type { ReactNode } from 'react'
 import { X } from 'lucide-react'
 import { cn } from '@/utils/cn'
@@ -27,7 +28,7 @@ export const Modal = ({ isOpen, onClose, title, children, className }: ModalProp
 
   if (!isOpen) return null
 
-  return (
+  const content = (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
@@ -36,7 +37,7 @@ export const Modal = ({ isOpen, onClose, title, children, className }: ModalProp
       {/* Desktop: centered modal; Mobile: bottom sheet */}
       <div
         className={cn(
-          'relative z-10 w-full bg-[var(--bg-surface)] border border-[var(--border)] shadow-2xl flex flex-col max-h-[90vh]',
+          'relative z-10 w-full bg-[var(--bg-surface)] border border-[var(--border)] shadow-2xl flex flex-col max-h-[90vh] overflow-hidden',
           'sm:max-w-[480px] sm:rounded-xl sm:animate-modal-entry',
           'rounded-t-2xl animate-sheet-entry sm:rounded-xl',
           className
@@ -53,10 +54,12 @@ export const Modal = ({ isOpen, onClose, title, children, className }: ModalProp
             </button>
           </div>
         )}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto min-h-0">
           {children}
         </div>
       </div>
     </div>
   )
+
+  return createPortal(content, document.body)
 }
