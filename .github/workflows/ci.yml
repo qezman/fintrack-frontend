@@ -37,9 +37,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
-          # The backend API URL baked into the React build
-          # Must match your ingress routing — /api prefix is stripped by nginx-ingress
-          VITE_API_URL: https://qossim005.online/api
+          VITE_API_URL: https://fintrack.qossim005.online/api
         run: |
           docker build \
             --build-arg VITE_API_URL=$VITE_API_URL \
