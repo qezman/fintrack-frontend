@@ -1,45 +1,46 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { Eye, EyeOff } from 'lucide-react'
-import axios from 'axios'
-import { useAuth } from '@/hooks/useAuth'
-import { Input } from '@/components/ui/Input'
-import { Button } from '@/components/ui/Button'
-import { AuthCard } from './AuthCard'
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
+import axios from "axios";
+import { useAuth } from "@/hooks/useAuth";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
+import { AuthCard } from "./AuthCard";
 
 const getErrorMessage = (err: unknown): string => {
   if (axios.isAxiosError(err)) {
-    if (!err.response) return 'Cannot reach the server — check your connection or backend.'
-    const msg = err.response.data?.message as string | undefined
-    return msg ?? `Server error (${err.response.status}). Please try again.`
+    if (!err.response)
+      return "Cannot reach the server — check your connection or backend.";
+    const msg = err.response.data?.message as string | undefined;
+    return msg ?? `Server error (${err.response.status}). Please try again.`;
   }
-  return 'An unexpected error occurred. Please try again.'
-}
+  return "An unexpected error occurred. Please try again.";
+};
 
 export const LoginForm = () => {
-  const { login } = useAuth()
-  const navigate = useNavigate()
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError(null)
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
     try {
-      await login({ email, password })
-      navigate('/dashboard')
+      await login({ email, password });
+      navigate("/dashboard");
     } catch (err) {
-      setError(getErrorMessage(err))
+      setError(getErrorMessage(err));
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <AuthCard title="Sign in" subtitle="Welcome back to FinTrack">
@@ -62,7 +63,7 @@ export const LoginForm = () => {
 
         <Input
           label="Password"
-          type={showPassword ? 'text' : 'password'}
+          type={showPassword ? "text" : "password"}
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -72,7 +73,7 @@ export const LoginForm = () => {
             <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
-              className="hover:text-[var(--text-secondary)] transition-colors"
+              className="hover:text-(--text-secondary) cursor-pointer transition-colors"
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>
@@ -83,13 +84,16 @@ export const LoginForm = () => {
           Sign In
         </Button>
 
-        <p className="text-center text-sm text-[var(--text-secondary)]">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-[var(--neutral)] hover:underline font-medium">
+        <p className="text-center text-sm text-(--text-secondary)">
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            className="text-(--neutral) hover:underline font-medium"
+          >
             Create one →
           </Link>
         </p>
       </form>
     </AuthCard>
-  )
-}
+  );
+};

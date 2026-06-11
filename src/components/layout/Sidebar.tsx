@@ -1,31 +1,31 @@
-import { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Receipt, LogOut, X } from 'lucide-react'
-import { useAuth } from '@/hooks/useAuth'
-import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { LayoutDashboard, Receipt, LogOut, X } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 
 interface SidebarProps {
-  onClose?: () => void
+  onClose?: () => void;
 }
 
 const navItems = [
-  { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/transactions', label: 'Transactions', icon: Receipt },
-]
+  { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { path: "/transactions", label: "Transactions", icon: Receipt },
+];
 
 export const Sidebar = ({ onClose }: SidebarProps) => {
-  const { logout } = useAuth()
-  const navigate = useNavigate()
-  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
-  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = () => {
-    setIsLoggingOut(true)
+    setIsLoggingOut(true);
     setTimeout(() => {
-      logout()
-      navigate('/login')
-    }, 400)
-  }
+      logout();
+      navigate("/login");
+    }, 400);
+  };
 
   return (
     <>
@@ -58,8 +58,8 @@ export const Sidebar = ({ onClose }: SidebarProps) => {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all font-medium ${
                   isActive
-                    ? 'bg-gradient-to-r from-[rgba(14,165,233,0.15)] to-transparent text-[var(--accent-primary)] border-l-2 border-[var(--accent-primary)]'
-                    : 'text-[var(--text-secondary)] hover:bg-[var(--bg-input)] hover:text-[var(--text-primary)] border-l-2 border-transparent'
+                    ? "bg-gradient-to-r from-[rgba(14,165,233,0.15)] to-transparent text-[var(--accent-primary)] border-l-2 border-[var(--accent-primary)]"
+                    : "text-[var(--text-secondary)] hover:bg-[var(--bg-input)] hover:text-[var(--text-primary)] border-l-2 border-transparent"
                 }`
               }
             >
@@ -72,7 +72,7 @@ export const Sidebar = ({ onClose }: SidebarProps) => {
         <div className="p-4 border-t border-[var(--border)]">
           <button
             onClick={() => setShowLogoutConfirm(true)}
-            className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-[var(--text-secondary)] hover:bg-[var(--expense-dim)] hover:text-[var(--expense)] transition-colors font-medium"
+            className="flex cursor-pointer items-center gap-3 w-full px-3 py-2.5 rounded-xl text-[var(--text-secondary)] hover:bg-[var(--expense-dim)] hover:text-[var(--expense)] transition-colors font-medium"
           >
             <LogOut size={18} strokeWidth={2} />
             Sign Out
@@ -90,5 +90,5 @@ export const Sidebar = ({ onClose }: SidebarProps) => {
         isLoading={isLoggingOut}
       />
     </>
-  )
-}
+  );
+};

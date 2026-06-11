@@ -1,21 +1,21 @@
-import { Modal } from './Modal'
-import { Button } from './Button'
+import { Modal } from "./Modal";
+import { Button } from "./Button";
 
 interface ConfirmDialogProps {
-  isOpen: boolean
-  title?: string
-  message: string
-  confirmLabel?: string
-  onConfirm: () => void
-  onCancel: () => void
-  isLoading?: boolean
+  isOpen: boolean;
+  title?: string;
+  message: string;
+  confirmLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+  isLoading?: boolean;
 }
 
 export const ConfirmDialog = ({
   isOpen,
-  title = 'Confirm action',
+  title = "Confirm action",
   message,
-  confirmLabel = 'Confirm',
+  confirmLabel = "Confirm",
   onConfirm,
   onCancel,
   isLoading = false,
@@ -33,4 +33,4 @@ export const ConfirmDialog = ({
       </div>
     </div>
   </Modal>
-)
+);

@@ -1,17 +1,21 @@
-import { useState } from 'react'
-import type { ReactNode } from 'react'
-import { Sidebar } from './Sidebar'
-import { TopBar } from './TopBar'
-import { cn } from '@/utils/cn'
+import { useState } from "react";
+import type { ReactNode } from "react";
+import { Sidebar } from "./Sidebar";
+import { TopBar } from "./TopBar";
+import { cn } from "@/utils/cn";
 
 interface AppShellProps {
-  children: ReactNode
-  pageTitle: string
-  onAddTransaction: () => void
+  children: ReactNode;
+  pageTitle: string;
+  onAddTransaction: () => void;
 }
 
-export const AppShell = ({ children, pageTitle, onAddTransaction }: AppShellProps) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+export const AppShell = ({
+  children,
+  pageTitle,
+  onAddTransaction,
+}: AppShellProps) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-transparent">
@@ -33,8 +37,8 @@ export const AppShell = ({ children, pageTitle, onAddTransaction }: AppShellProp
 
       <div
         className={cn(
-          'flex flex-col min-h-screen transition-all duration-300',
-          'md:ml-[var(--sidebar-width)]'
+          "flex flex-col min-h-screen transition-all duration-300",
+          "md:ml-[var(--sidebar-width)]",
         )}
       >
         <TopBar
@@ -45,5 +49,5 @@ export const AppShell = ({ children, pageTitle, onAddTransaction }: AppShellProp
         <main className="flex-1 p-6 animate-page-entry">{children}</main>
       </div>
     </div>
-  )
-}
+  );
+};

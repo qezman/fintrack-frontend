@@ -1,24 +1,28 @@
-import { AppShell } from '@/components/layout/AppShell'
-import { SummaryCard } from '@/components/dashboard/SummaryCard'
-import { OverviewChart } from '@/components/dashboard/OverviewChart'
-import { RecentTransactions } from '@/components/dashboard/RecentTransactions'
-import { CategoryBreakdown } from '@/components/dashboard/CategoryBreakdown'
-import { TransactionForm } from '@/components/transactions/TransactionForm'
-import { Modal } from '@/components/ui/Modal'
-import { useModal } from '@/hooks/useModal'
-import { useSummary } from '@/hooks/useSummary'
-import { useTransactions } from '@/hooks/useTransactions'
+import { AppShell } from "@/components/layout/AppShell";
+import { SummaryCard } from "@/components/dashboard/SummaryCard";
+import { OverviewChart } from "@/components/dashboard/OverviewChart";
+import { RecentTransactions } from "@/components/dashboard/RecentTransactions";
+import { CategoryBreakdown } from "@/components/dashboard/CategoryBreakdown";
+import { TransactionForm } from "@/components/transactions/TransactionForm";
+import { Modal } from "@/components/ui/Modal";
+import { useModal } from "@/hooks/useModal";
+import { useSummary } from "@/hooks/useSummary";
+import { useTransactions } from "@/hooks/useTransactions";
 
 export const Dashboard = () => {
-  const { summary, isLoading: summaryLoading, fetchSummary } = useSummary()
-  const { transactions, isLoading: txnsLoading, fetchTransactions } = useTransactions()
-  const { isOpen, open, close } = useModal()
+  const { summary, isLoading: summaryLoading, fetchSummary } = useSummary();
+  const {
+    transactions,
+    isLoading: txnsLoading,
+    fetchTransactions,
+  } = useTransactions();
+  const { isOpen, open, close } = useModal();
 
   const handleTransactionSuccess = () => {
-    close()
-    void fetchTransactions()
-    void fetchSummary()
-  }
+    close();
+    void fetchTransactions();
+    void fetchSummary();
+  };
 
   return (
     <AppShell pageTitle="Dashboard" onAddTransaction={open}>
@@ -50,7 +54,10 @@ export const Dashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <RecentTransactions transactions={transactions} isLoading={txnsLoading} />
+          <RecentTransactions
+            transactions={transactions}
+            isLoading={txnsLoading}
+          />
         </div>
       </div>
 
@@ -58,5 +65,5 @@ export const Dashboard = () => {
         <TransactionForm onSuccess={handleTransactionSuccess} />
       </Modal>
     </AppShell>
-  )
-}
+  );
+};
