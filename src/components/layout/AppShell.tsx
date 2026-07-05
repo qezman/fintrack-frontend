@@ -18,7 +18,7 @@ export const AppShell = ({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-transparent">
+    <div className="min-h-screen bg-[var(--bg-base)]">
       <div className="hidden md:block fixed inset-y-0 left-0 z-40">
         <Sidebar />
       </div>

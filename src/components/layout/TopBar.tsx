@@ -12,7 +12,7 @@ export const TopBar = ({ onAddTransaction, onToggleSidebar, pageTitle }: TopBarP
   const { user } = useAuth()
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-4 glass-panel border-l-0 border-t-0 border-r-0">
+    <header className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 glass-panel border-l-0 border-t-0 border-r-0">
       <div className="flex items-center gap-4">
         <button
           className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl text-[var(--text-secondary)] hover:bg-[var(--bg-input)] hover:text-white transition-colors"
